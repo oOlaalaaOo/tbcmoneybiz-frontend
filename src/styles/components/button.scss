@@ -1,0 +1,175 @@
+@import "../variables.scss";
+
+button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+// Button
+.btn {
+  padding: 8px 23px;
+  letter-spacing: 0.9px;
+  font-weight: 400;
+  font-size: 17px;
+  margin: 0px 5px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-xs {
+  padding: 3px 15px;
+}
+
+.btn-sm {
+  padding: 5px 15px;
+}
+
+.btn-md {
+  padding: 7px 15px;
+}
+
+.btn-lg {
+  padding: 10px 15px;
+}
+
+.btn-xl {
+  padding: 15px 15px;
+}
+
+.btn-default {
+  background-color: $color-default;
+  color: #000000;
+  border: none;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-success {
+  background-color: $color-success;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-dark {
+  background-color: $color-dark;
+  color: #000000;
+  border: none;
+}
+
+.btn-warning {
+  background-color: $color-warning;
+  color: #000000;
+  border: none;
+}
+
+.btn-info {
+  background-color: $color-info;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-error {
+  background-color: $color-error;
+  color: "#ffffff";
+  border: none;
+}
+
+.btn-default-outline {
+  background-color: $color-default;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.btn-primary-outline {
+  background-color: #ffffff;
+  color: $color-primary;
+  border: 2px solid $color-primary;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-primary-outline:hover {
+  color: #ffffff;
+  background-color: $color-primary;
+  border: 2px solid $color-primary;
+}
+
+.btn-success-outline {
+  background-color: #ffffff;
+  color: $color-success;
+  border: 2px solid $color-success;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-success-outline:hover {
+  color: #ffffff;
+  background-color: $color-success;
+  border: 2px solid $color-success;
+}
+
+.btn-dark-outline {
+  background-color: #ffffff;
+  color: $color-dark;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-dark-outline:hover {
+  color: #ffffff;
+  background-color: $color-dark;
+}
+
+.btn-warning-outline {
+  background-color: #ffffff;
+  color: $color-warning;
+  border: 2px solid $color-warning;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-warning-outline:hover {
+  color: #ffffff;
+  background-color: $color-warning;
+}
+
+.btn-info-outline {
+  background-color: #ffffff;
+  color: $color-info;
+  border: 2px solid $color-info;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-info-outline {
+  color: #ffffff;
+  background-color: $color-info;
+}
+
+.btn-error-outline {
+  background-color: #ffffff;
+  color: $color-error;
+  border: 2px solid $color-error;
+  transition: background-color 0.3s, color 0.3s;
+  transition-timing-function: ease;
+}
+
+.btn-error-outline {
+  color: #ffffff;
+  background-color: $color-error;
+}
+
+.btn-rounded {
+  border-radius: $rounded;
+}
+
+.btn-shadow {
+  box-shadow: $shadow;
+}

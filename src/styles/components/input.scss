@@ -1,0 +1,68 @@
+@import '../variables.scss';
+
+// Input
+.input {
+  // font-size: 15px;
+  // letter-spacing: 0.9px;
+  // font-weight: 400;
+  border: 1px solid #999999;
+}
+
+.input-xs {
+  padding: 5px;
+  border-radius: $rounded;
+}
+
+.input-sm {
+  padding: 8px;
+  border-radius: $rounded;
+}
+
+.input-md {
+  padding: 10px;
+  border-radius: $rounded;
+}
+
+.input-lg {
+  padding: 10px;
+  border-radius: $rounded;
+}
+
+.input-xl {
+  padding: 10px;
+  border-radius: $rounded;
+}
+
+.input-block {
+  width: 100%;
+}
+
+.input-primary {
+  border: 1px;
+  border-style: solid;
+  border-color: $color-primary;
+}
+
+.input-success {
+  border: 1px;
+  border-style: solid;
+  border-color: $color-success;
+}
+
+.input-info {
+  border: 1px;
+  border-style: solid;
+  border-color: $color-info;
+}
+
+.input-warning {
+  border: 1px;
+  border-style: solid;
+  border-color: $color-warning;
+}
+
+.input-error {
+  border: 1px;
+  border-style: solid;
+  border-color: $color-error;
+}

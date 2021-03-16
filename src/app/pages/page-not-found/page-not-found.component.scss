@@ -1,0 +1,88 @@
+.page-not-found {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .page-not-found-background-logo {
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+  }
+
+  .page-not-found-logo {
+    width: 400px;
+    height: 300px;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @media (min-width: 375px) {
+    .page-not-found-logo {
+      width: 250px;
+      height: 150px;
+    }
+  }
+
+  @media (min-width: 325px) {
+    .page-not-found-logo {
+      width: 200px;
+      height: 150px;
+    }
+  }
+
+  .landing-qoute {
+    margin-top: 40px;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+
+    h1 {
+      font-size: 5rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .page-not-found-qoute {
+      margin-top: 80px;
+      padding: 5px 20px;
+
+      h1 {
+        font-size: 4rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  @media (max-width: 325px) {
+    .page-not-found-qoute {
+      margin-top: 40px;
+      padding: 5px 20px;
+
+      h1 {
+        font-size: 3rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .page-not-found-buttons {
+    margin-top: 40px;
+  }
+}

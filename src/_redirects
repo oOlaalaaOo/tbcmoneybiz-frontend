@@ -1,0 +1,6 @@
+/landing /landing
+/user/auth/login /user/auth/login
+/user/auth/register /user/auth/register
+/user/dashboard /user/dashboard
+/admin/auth/login /admin/auth/login
+/admin/dashboard /admin/dashboard

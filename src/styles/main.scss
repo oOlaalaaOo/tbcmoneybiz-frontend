@@ -1,0 +1,84 @@
+/* You can add global styles to this file, and also import other style files */
+// @import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+@import "./variables.scss";
+@import "./components/index.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.bg-main {
+  background-color: #f8f9fa;
+}
+
+.bg-secondary {
+  background-color: #ffffff;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.page-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.vertical-space {
+  margin: 10px 0px;
+}
+
+.horizontal-space {
+  margin: 0px 10px;
+}

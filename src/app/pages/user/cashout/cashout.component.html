@@ -1,0 +1,338 @@
+<div class="dashboard">
+  <app-user-navigation-header></app-user-navigation-header>
+
+  <div class="page-container" style="min-height: 90vh !important">
+    <h1>Work in Progress....</h1>
+    <!-- <div *ngIf="loadingData">Loading datas...</div>
+    <div *ngIf="!loadingData">
+      <div class="row" *ngIf="!isUserAlreadyPaid()">
+        <div class="col-xs-12" *ngIf="!isUserAlreadyHasPaid()">
+          <p-messages severity="warn">
+            <ng-template pTemplate>
+              <span class="custom-message">
+                <i class="pi pi-exclamation-circle"></i> It looks like your not
+                paid yet. Please do pay for the membership fee to start
+                <strong>Cashout</strong>.</span
+              >
+            </ng-template>
+          </p-messages>
+
+          <p-card>
+            <form class="form-container" [formGroup]="membershipForm">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <div class="form-group">
+                    <h2>Please pay your membership here</h2>
+                  </div>
+                  <div class="form-group">
+                    <h4 style="margin-bottom: 10px">Membership Fee(BTC)</h4>
+                    <div class="p-inputgroup">
+                      <input
+                        type="text"
+                        pInputText
+                        placeholder="Keyword"
+                        [value]="btcValue"
+                        readonly="true"
+                      />
+                      <button
+                        type="button"
+                        pButton
+                        pRipple
+                        icon="pi pi-copy"
+                        class="p-button-success"
+                        [cdkCopyToClipboard]="btcValue"
+                      ></button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <h4 style="margin-bottom: 10px">
+                      Please send your payment on this BTC Wallet
+                    </h4>
+                    <div class="p-inputgroup">
+                      <input
+                        type="text"
+                        pInputText
+                        placeholder="Keyword"
+                        [value]="adminBtcWallet"
+                        readonly="true"
+                      />
+                      <button
+                        type="button"
+                        pButton
+                        pRipple
+                        icon="pi pi-copy"
+                        class="p-button-success"
+                        [cdkCopyToClipboard]="adminBtcWallet"
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <div class="form-group">
+                    <label for="transactionHash">Transaction Hash</label>
+                    <input
+                      type="text"
+                      class="input input-block"
+                      name="transactionHash"
+                      id="transactionHash"
+                      formControlName="transactionHash"
+                      pInputText
+                      uniqueTransactionHash
+                    />
+                    <div
+                      class="error-message"
+                      *ngIf="membershipForm.controls.transactionHash.pending"
+                    >
+                      Checking...
+                    </div>
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        !membershipForm.controls.transactionHash.untouched &&
+                        membershipForm.controls.transactionHash.invalid
+                      "
+                    >
+                      <ng-template
+                        [ngIf]="
+                          membershipForm.controls.transactionHash.errors
+                            .uniqueTransactionHash
+                        "
+                      >
+                        <small>Transaction Hash is already taken</small>
+                      </ng-template>
+                      <ng-template
+                        [ngIf]="
+                          membershipForm.controls.transactionHash.errors
+                            .required
+                        "
+                      >
+                        <small>Transaction Hash is required</small>
+                      </ng-template>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <button
+                      pButton
+                      type="button"
+                      label="Pay Now"
+                      class="p-button-primary"
+                      [disabled]="membershipProcessing"
+                      (click)="payMembership()"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </p-card>
+        </div>
+
+        <div
+          class="col-xs-12 col-sm-6 offset-sm-3"
+          style="margin-top: 10%"
+          *ngIf="isUserAlreadyHasPaid()"
+        >
+          <p-card>
+            <div style="text-align: center; padding: 50px">
+              <i class="pi pi-check-circle" style="font-size: 6em"></i>
+              <br />
+              <br />
+              <p>Your membership payment is now in process...</p>
+            </div>
+          </p-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8" *ngIf="isUserAlreadyPaid()">
+          <p-card>
+            <h3 style="margin-bottom: 15px">Your Account</h3>
+            <table *ngIf="userMembershipDetails">
+              <tr>
+                <td style="width: 70%; padding: 10px 15px">Unilevel</td>
+                <td style="text-align: right">
+                  {{ userMembershipDetails.unilevel_points | currency }}
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 70%; padding: 10px 15px">
+                  Membership Interest
+                </td>
+                <td style="text-align: right">
+                  {{ userMembershipDetails.interest | currency }}
+                </td>
+              </tr>
+            </table>
+
+            <br />
+            <hr />
+            <br />
+
+            <form class="form-container" [formGroup]="cashoutForm">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <div class="form-group">
+                    <h2>Cashout Form</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="isCashoutDay() === true">
+                <div *ngIf="cashoutStatus && cashoutStatus.status == 'pending'">
+                  <p-card>
+                    <div style="text-align: center; padding: 50px">
+                      <i class="pi pi-check-circle" style="font-size: 6em"></i>
+                      <br />
+                      <br />
+                      <p>Your cashout is now in process...</p>
+                    </div>
+                  </p-card>
+                </div>
+
+                <div *ngIf="cashoutStatus && cashoutStatus.status == 'confirmed'">
+                  <p-card>
+                    <div style="text-align: center; padding: 50px">
+                      <i class="pi pi-check-circle" style="font-size: 6em"></i>
+                      <br />
+                      <br />
+                      <p>Your cashout for today have been confirmed...</p>
+                    </div>
+                  </p-card>
+                </div>
+
+                <div *ngIf="cashoutStatus && cashoutStatus.status == 'declined'">
+                  <p-card>
+                    <div style="text-align: center; padding: 50px">
+                      <i class="pi pi-check-circle" style="font-size: 6em"></i>
+                      <br />
+                      <br />
+                      <p>Your cashout for today have been declined...</p>
+                    </div>
+                  </p-card>
+                </div>
+
+                <div *ngIf="cashoutStatus == null || cashoutStatus.isToday == false">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-8">
+                      <div class="form-group">
+                        <label for="unilevel">Unilevel</label>
+                        <input
+                          type="number"
+                          class="input input-block"
+                          name="unilevel"
+                          id="unilevel"
+                          formControlName="unilevel"
+                          pInputText
+                        />
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            !cashoutForm.controls.unilevel.untouched &&
+                            cashoutForm.controls.unilevel.invalid
+                          "
+                        >
+                          <ng-template
+                            [ngIf]="
+                              cashoutForm.controls.unilevel.errors.required
+                            "
+                          >
+                            <small>Unilevel is required</small>
+                          </ng-template>
+                          <ng-template
+                            [ngIf]="cashoutForm.controls.unilevel.errors.max"
+                          >
+                            <small
+                              >Please enter a number not greater than
+                              {{ cashoutForm.controls.unilevel.errors.max.max }}
+                            </small>
+                          </ng-template>
+                          <ng-template
+                            [ngIf]="cashoutForm.controls.unilevel.errors.min"
+                          >
+                            <small
+                              >Please enter a number not less than
+                              {{ cashoutForm.controls.unilevel.errors.min.min }}
+                            </small>
+                          </ng-template>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="interest">Interest</label>
+                        <input
+                          type="number"
+                          class="input input-block"
+                          name="interest"
+                          id="interest"
+                          formControlName="interest"
+                          pInputText
+                        />
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            !cashoutForm.controls.interest.untouched &&
+                            cashoutForm.controls.interest.invalid
+                          "
+                        >
+                          <ng-template
+                            [ngIf]="
+                              cashoutForm.controls.interest.errors.required
+                            "
+                          >
+                            <small>Interest is required</small>
+                          </ng-template>
+                          <ng-template
+                            [ngIf]="cashoutForm.controls.interest.errors.max"
+                          >
+                            <small
+                              >Please enter a number not greater than
+                              {{ cashoutForm.controls.interest.errors.max.max }}
+                            </small>
+                          </ng-template>
+                          <ng-template
+                            [ngIf]="cashoutForm.controls.interest.errors.min"
+                          >
+                            <small
+                              >Please enter a number not less than
+                              {{ cashoutForm.controls.interest.errors.min.min }}
+                            </small>
+                          </ng-template>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button
+                          pButton
+                          type="button"
+                          label="Submit Cashout"
+                          class="p-button-primary"
+                          [disabled]="cashoutProcessing"
+                          (click)="submitCashout()"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isCashoutDay() === false">
+                <p-card>
+                  <div style="text-align: center; padding: 50px">
+                    <i class="pi pi-check-circle" style="font-size: 6em"></i>
+                    <br />
+                    <br />
+                    <p>Not a cashout date...</p>
+                  </div>
+                </p-card>
+              </div>
+            </form>
+          </p-card>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <p-toast></p-toast>
+</div>

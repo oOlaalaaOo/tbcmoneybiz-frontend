@@ -1,0 +1,325 @@
+<div class="register">
+  <div class="form">
+    <form class="form-container" [formGroup]="registerForm">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 offset-sm-3">
+          <h1 style="margin-bottom: 20px">Create Account</h1>
+        </div>
+      </div>
+
+      <div class="form-inputs">
+        <div class="row">
+          <div class="col-xs-12">
+            <ng-template
+              [ngIf]="registerStatusMessage && registerStatusMessage.length > 0"
+            >
+              <p-messages
+                severity="success"
+                [(value)]="registerStatusMessage"
+              ></p-messages>
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="username"
+                id="username"
+                formControlName="username"
+                pInputText
+                uniqueEmail
+              />
+              <div
+                class="error-message"
+                *ngIf="registerForm.controls.username.pending"
+              >
+                Checking...
+              </div>
+              <div
+                class="error-message"
+                *ngIf="
+                  !registerForm.controls.username.untouched &&
+                  registerForm.controls.username.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="registerForm.controls.username.errors.uniqueEmail"
+                >
+                  <small>Username is already taken</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.username.errors.required"
+                >
+                  <small>Username is required</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.username.errors.minlength"
+                >
+                  <small
+                    >Username must have atleast
+                    {{
+                      registerForm.controls.username.errors.minlength
+                        .requiredLength
+                    }}
+                    characters length</small
+                  >
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 offset-sm-3">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="input input-block"
+                name="password"
+                id="password"
+                formControlName="password"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !registerForm.controls.password.untouched &&
+                  registerForm.controls.password.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="registerForm.controls.password.errors.required"
+                >
+                  <small>Password is required</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.password.errors.minlength"
+                >
+                  <small
+                    >Password must have atleast
+                    {{
+                      registerForm.controls.password.errors.minlength
+                        .requiredLength
+                    }}
+                    characters length</small
+                  >
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                class="input input-block"
+                name="confirmPassword"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !registerForm.controls.confirmPassword.untouched &&
+                  registerForm.controls.confirmPassword.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="registerForm.controls.confirmPassword.errors.required"
+                >
+                  <small>Confirm Password is required</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.confirmPassword.errors.isMatch"
+                >
+                  <small>Confirm Password did not matched</small>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <br />
+            <hr />
+            <br />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <div class="form-group">
+              <label for="referrerCode">Referrer Code</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="referrerCode"
+                id="referrerCode"
+                formControlName="referrerCode"
+                pInputText
+                existsReferralLink
+              />
+              <div
+                class="error-message"
+                *ngIf="registerForm.controls.referrerCode.pending"
+              >
+                Checking...
+              </div>
+              <div
+                class="error-message"
+                *ngIf="
+                  !registerForm.controls.referrerCode.untouched &&
+                  registerForm.controls.referrerCode.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="
+                    registerForm.controls.referrerCode.errors.existsReferralLink
+                  "
+                >
+                  <small>Referrer Code does not exists</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.referrerCode.errors.required"
+                >
+                  <small>Referrer Code is required</small>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <br />
+            <hr />
+            <br />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <div class="form-group">
+              <h4 style="margin-bottom: 10px">Membership Fee(BTC)</h4>
+              <div class="p-inputgroup">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Keyword"
+                  [value]="btcValue"
+                  readonly="true"
+                />
+                <button
+                  type="button"
+                  pButton
+                  pRipple
+                  icon="pi pi-copy"
+                  class="p-button-success p-button-outlined"
+                  [cdkCopyToClipboard]="btcValue"
+                ></button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <h4 style="margin-bottom: 10px">
+                Please send your payment on this BTC Wallet
+              </h4>
+              <div class="p-inputgroup">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Keyword"
+                  [value]="adminBtcWallet"
+                  readonly="true"
+                />
+                <button
+                  type="button"
+                  pButton
+                  pRipple
+                  icon="pi pi-copy"
+                  class="p-button-success p-button-outlined"
+                  [cdkCopyToClipboard]="adminBtcWallet"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <div class="form-group">
+              <label for="transactionHash">Transaction Hash</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="transactionHash"
+                id="transactionHash"
+                formControlName="transactionHash"
+                pInputText
+                uniqueTransactionHash
+              />
+              <div
+                class="error-message"
+                *ngIf="registerForm.controls.transactionHash.pending"
+              >
+                Checking...
+              </div>
+              <div
+                class="error-message"
+                *ngIf="
+                  !registerForm.controls.transactionHash.untouched &&
+                  registerForm.controls.transactionHash.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="
+                    registerForm.controls.transactionHash.errors
+                      .uniqueTransactionHash
+                  "
+                >
+                  <small>Transaction Hash is already taken</small>
+                </ng-template>
+                <ng-template
+                  [ngIf]="registerForm.controls.transactionHash.errors.required"
+                >
+                  <small>Transaction Hash is required</small>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 offset-sm-3">
+            <div class="form-group">
+              <button
+                pButton
+                type="button"
+                label="Register"
+                class="p-button-success"
+                (click)="register()"
+                [disabled]="registerProcessing"
+              ></button>
+              <button
+                pButton
+                type="button"
+                label="Already have account?"
+                class="p-button-link"
+                (click)="goToLogin()"
+                [disabled]="registerProcessing"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

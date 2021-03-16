@@ -1,0 +1,150 @@
+<div class="dashboard">
+  <app-user-navigation-header></app-user-navigation-header>
+
+  <div class="page-container">
+    <div class="row" style="margin-bottom: 30px">
+      <div class="col-xs-12" *ngIf="!isUserConfirmed()">
+        <p-messages severity="warn">
+          <ng-template pTemplate>
+            <span class="custom-message">
+              <i class="pi pi-exclamation-circle"></i> Your membership is now
+              processing. Please wait for the admin to confirm it. Thanks!
+            </span>
+          </ng-template>
+        </p-messages>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <p-card>
+          <h3 style="margin-bottom: 15px">Your Account</h3>
+          <table *ngIf="userMembershipDetails">
+            <tr>
+              <td style="width: 100%; padding: 10px 15px">
+                <a [href]="goToReferralLink()" target="_blank"
+                  ><i>Please click to get your Referral Link</i></a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 70%; padding: 10px 15px">Referral Code</td>
+              <td style="text-align: right">
+                {{ userMembershipDetails.referral_link }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 70%; padding: 10px 15px">Unilevel</td>
+              <td style="text-align: right">
+                {{ userMembershipDetails.unilevel_points | currency }}
+              </td>
+            </tr>
+            <!-- <tr>
+              <td style="width: 70%; padding: 10px 15px">
+                Membership Interest
+              </td>
+              <td style="text-align: right">
+                {{ userMembershipDetails.interest | currency }}
+              </td>
+            </tr> -->
+          </table>
+        </p-card>
+      </div>
+      <div class="col-xs-12 col-sm-8 col-md-6">
+        <!-- <p-messages severity="warn" *ngIf="!isUserAlreadyPaid() && !isUserAlreadyHasPaid()">
+          <ng-template pTemplate>
+            <span class="custom-message">
+              <i class="pi pi-exclamation-circle"></i> It looks like your not
+              paid yet. Go
+              <span
+                style="text-decoration: underline; color: blue; cursor: pointer"
+                (click)="goToCashoutPage()"
+                >here</span
+              >
+              to proceed with the payment.</span
+            >
+          </ng-template>
+        </p-messages>
+        <p-messages severity="info" *ngIf="isUserAlreadyHasPaid()">
+          <ng-template pTemplate>
+            <span class="custom-message">
+              <i class="pi pi-check-circle"></i> Your membership payment is now in process...</span
+            >
+          </ng-template>
+        </p-messages>
+        <p-messages severity="info" *ngIf="!isUserFullyDetailed()">
+          <ng-template pTemplate>
+            <span class="custom-message">
+              <i class="pi pi-info-circle"></i> Please add more details on your
+              account
+              <span
+                style="text-decoration: underline; color: blue; cursor: pointer"
+                (click)="goToAccountPage()"
+                >here</span
+              >
+              this will help us to send your earnings.
+            </span>
+          </ng-template>
+        </p-messages> -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p-card>
+          <div style="margin-bottom: 20px">
+            <h3 style="margin-bottom: 15px">Your Downlines</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                <h4 style="margin-top: 7px">Select Downline Level:</h4>
+              </div>
+              <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+                <p-dropdown
+                  [options]="levels"
+                  [(ngModel)]="selectedLevel"
+                  (onChange)="getUserDownlines()"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <p-table
+            [value]="downlines"
+            [loading]="loadingDownlines"
+            styleClass="p-datatable-responsive-demo"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Member</th>
+                <th>Membership Plan</th>
+                <th>Membership Status</th>
+                <th>Date</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-membership>
+              <tr>
+                <td>{{ membership.user.name }}</td>
+                <td>
+                  {{ membership.plan.name }} ({{
+                    membership.plan.cost | currency
+                  }})
+                </td>
+
+                <td>
+                  <button
+                    pButton
+                    type="button"
+                    class="p-button-rounded p-button-sm"
+                    [ngClass]="{
+                      'p-button-warning': membership.status == 'pending',
+                      'p-button-success': membership.status == 'confirmed',
+                      'p-button-danger': membership.status == 'denied'
+                    }"
+                    [label]="membershipStatusText(membership.status)"
+                  ></button>
+                </td>
+                <td>{{ membership.created_at | date: "medium" }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

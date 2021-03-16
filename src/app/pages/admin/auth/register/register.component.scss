@@ -1,0 +1,82 @@
+@import "../../../../../styles/variables.scss";
+
+.register {
+  padding: 20px 0px;
+
+  .form {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .form-container {
+      background-color: #ffffff;
+      width: 70%;
+      padding: 15px 15px;
+      border: 1px solid transparent;
+      box-shadow: $shadow;
+
+      .form-title {
+        display: flex;
+        align-items: center;
+        // width: 100%;
+        margin-bottom: 30px;
+        // text-align: center;
+
+        h1 {
+          font-size: 52px;
+          font-weight: 500;
+        }
+      }
+
+      .btn-spacer {
+        margin: 15px 0px;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 425px) {
+      .form-container {
+        width: 250px;
+
+        .form-title {
+          h1 {
+            font-size: 48px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 375px) {
+      .form-container {
+        width: 250px;
+
+        .form-title {
+          h1 {
+            font-size: 36px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 320px) {
+      .form-container {
+        width: 250px;
+
+        .form-title {
+          h1 {
+            font-size: 36px;
+          }
+        }
+      }
+    }
+  }
+}

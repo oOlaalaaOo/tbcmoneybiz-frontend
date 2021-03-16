@@ -1,0 +1,165 @@
+<div>
+  <div class="landing bg-secondary">
+    <!-- <div class="bg-shape">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#a2d9ff"
+        fill-opacity="1"
+        d="M0,128L0,128L144,128L144,320L288,320L288,96L432,96L432,224L576,224L576,224L720,224L720,256L864,256L864,64L1008,64L1008,160L1152,160L1152,160L1296,160L1296,320L1440,320L1440,0L1296,0L1296,0L1152,0L1152,0L1008,0L1008,0L864,0L864,0L720,0L720,0L576,0L576,0L432,0L432,0L288,0L288,0L144,0L144,0L0,0L0,0Z"
+      ></path>
+    </svg>
+  </div> -->
+    <div class="landing-header">
+      <!-- <div class="logo">
+        <img src="assets/images/primeng-logo.png" style="width: 40px" />&nbsp;
+        <h3>TBC Money Biz</h3>
+      </div>
+      <div class="links">
+        <button
+          pButton
+          type="button"
+          label="Login"
+          class="p-button-warning"
+          (click)="goToLogin()"
+        ></button>
+         &nbsp;&nbsp;
+        <button
+          pButton
+          type="button"
+          label="Register"
+          class="p-button-success"
+          (click)="goToRegister()"
+        ></button>
+      </div> -->
+    </div>
+
+    <div class="landing-content">
+      <div class="section">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 offset-md-3 text-center">
+            <h1>TBC Money Biz</h1>
+            <p
+              style="
+                color: #999999;
+                font-size: 14px;
+                margin-top: 15px;
+                margin-bottom: 25px;
+              "
+            >
+              Trade with confidence on the world’s fastest and most secure
+              crypto exchange
+            </p>
+            <button
+              pButton
+              type="button"
+              label="Create Account"
+              class="p-button-success"
+              (click)="goToRegister()"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              label="Sign in to your Account"
+              class="p-button-success"
+              (click)="goToLogin()"
+              style="margin-left: 10px"
+            ></button>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <!-- <div style="width: 400px; margin-left: auto; margin-right: auto">
+              <img src="https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" style="width: 100%" />
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <!-- <div class="row">
+          <div class="col-xs-12" *ngIf="countryExchangeRateList.length > 0">
+            <p-carousel
+              [value]="countryExchangeRateList"
+              [numVisible]="5"
+              [numScroll]="1"
+              [autoplayInterval]="2000"
+            >
+              <ng-template let-countryExchangeRate pTemplate="item">
+                <div class="flag-container">
+                  <h4>{{ countryExchangeRate.code }}</h4>
+                  <img [src]="countryExchangeRate.flag" />
+                  <p>
+                    {{
+                      countryExchangeRate.data.last
+                        | currency: countryExchangeRate.code
+                    }}
+                  </p>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="section" style="margin-top: 100px">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div style="text-align: center">
+              <img src="assets/icons/100-m.webp" />
+              <h3>Earn profits</h3>
+              <!-- <p
+                style="
+                  color: #999999;
+                  font-size: 14px;
+                  margin-top: 15px;
+                  margin-bottom: 25px;
+                "
+              >
+                Launch your campaign and benefit from our expertise on
+                designing.
+              </p> -->
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6">
+            <div style="text-align: center">
+              <img src="assets/icons/ssl.webp" />
+              <h3>Instant Exchange</h3>
+              <!-- <p
+                style="
+                  color: #999999;
+                  font-size: 14px;
+                  margin-top: 15px;
+                  margin-bottom: 25px;
+                "
+              >
+                Launch your campaign and benefit from our expertise on
+                designing.
+              </p> -->
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 offset-md-3">
+            <div style="text-align: center; margin-top: 50px">
+              <img src="assets/icons/shield-security.webp" height="100" />
+              <h3>Secured Transaction</h3>
+              <!-- <p
+                style="
+                  color: #999999;
+                  font-size: 14px;
+                  margin-top: 15px;
+                  margin-bottom: 25px;
+                "
+              >
+                Launch your campaign and benefit from our expertise on
+                designing.
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="">&copy; TBC Money Biz. 2021</div>
+  </div>
+</div>

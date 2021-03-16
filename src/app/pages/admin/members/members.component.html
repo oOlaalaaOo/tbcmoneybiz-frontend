@@ -1,0 +1,167 @@
+<div class="members">
+  <app-admin-navigation-header></app-admin-navigation-header>
+
+  <div class="page-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 style="margin-bottom: 30px">Members</h2>
+      </div>
+      <div class="col-xs-12">
+        <p-card>
+          <div class="row vertical-space">
+            <div class="col-xs-12 col-md-8">
+              <label style="margin-right: 10px">Filter Status:</label>
+              <p-dropdown
+                [options]="statusFilters"
+                [(ngModel)]="statusFilter"
+                (onChange)="filterAllMembers()"
+              ></p-dropdown>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <input
+                type="text"
+                class="input input-block"
+                name="searchMemberNameKeyword"
+                id="searchMemberNameKeyword"
+                placeholder="Search by Member Name"
+                [(ngModel)]="searchMemberNameKeyword"
+                (keyup)="filterAllMembers()"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <p-table
+                [value]="members"
+                [lazy]="true"
+                (onLazyLoad)="getAllMembers($event)"
+                [paginator]="true"
+                [rows]="15"
+                [totalRecords]="membersTotalCount"
+                [loading]="loadingMembers"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Member(Username)</th>
+                    <th>BTC Wallet</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-member>
+                  <tr>
+                    <td>{{ member.name + '(' + member.email + ')' }}</td>
+                    <td>
+                      {{ member.btc_wallet }}
+                    </td>
+                    <td>
+                      <button
+                        pButton
+                        type="button"
+                        class="p-button-rounded p-button-sm"
+                        [ngClass]="{
+                          'p-button-danger': member.status == 'deactivated',
+                          'p-button-success': member.status == 'activated'
+                        }"
+                        [label]="memberStatusText(member.status)"
+                      ></button>
+                    </td>
+                    <td>{{ member.created_at | date: "medium" }}</td>
+                    <td>
+                      <button
+                        pButton
+                        type="button"
+                        class="p-button-outlined p-button-sm"
+                        label="view"
+                        (click)="selectMember(member)"
+                      ></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog
+    header="Member Details"
+    [(visible)]="showMemberModal"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    *ngIf="selectedMember"
+  >
+    <div class="row">
+      <div class="col-xs-12">
+        <table style="width: 100%; margin-bottom: 30px">
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Member</td>
+            <td>
+              {{ selectedMember.name }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Password</td>
+            <td>
+              {{ selectedMember.sub_password }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">BTC Wallet</td>
+            <td>
+              {{ selectedMember.btc_wallet }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Membership Plans</td>
+            <td>
+              <p *ngFor="let membership of selectedMember.memberships">
+                {{ membership.plan.name }}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Last Cashout Date</td>
+            <td>
+              {{ selectedMember.last_cashout_at | date: "medium" }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Activated Date</td>
+            <td>
+              {{ selectedMember.last_activated_at | date: "medium" }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%; padding: 10px 15px">Date</td>
+            <td>
+              {{ selectedMember.created_at | date: "medium" }}
+            </td>
+          </tr>
+        </table>
+
+        <h3>Status: {{ selectedMember.status | uppercase }}</h3>
+      </div>
+    </div>
+    <p-footer>
+      <!-- <button
+        pButton
+        class="p-button-danger"
+        label="Deny"
+        (click)="denyMembership(selectedMember.id)"
+      ></button>
+      <button
+        pButton
+        class="p-button-success"
+        label="Confirm"
+        (click)="confirmMembership(selectedMember.id)"
+      ></button> -->
+    </p-footer>
+  </p-dialog>
+
+  <p-toast></p-toast>
+</div>

@@ -1,0 +1,229 @@
+<div class="account">
+  <app-user-navigation-header></app-user-navigation-header>
+
+  <div class="page-container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4" style="margin-top: 10px;">
+        <p-card>
+          <form class="form-container" [formGroup]="accountDetailsForm">
+            <h3 style="margin-bottom: 20px">Account Details</h3>
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="username"
+                id="username"
+                formControlName="username"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountDetailsForm.controls.username.untouched &&
+                  accountDetailsForm.controls.username.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountDetailsForm.controls.username.errors.required"
+                >
+                  <small>Username is required</small>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="name"
+                id="name"
+                formControlName="name"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountDetailsForm.controls.name.untouched &&
+                  accountDetailsForm.controls.name.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountDetailsForm.controls.name.errors.required"
+                >
+                  <small>Full name is required</small>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="btcWallet">BTC Wallet Address</label>
+              <input
+                type="text"
+                class="input input-block"
+                name="btcWallet"
+                id="btcWallet"
+                formControlName="btcWallet"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountDetailsForm.controls.btcWallet.untouched &&
+                  accountDetailsForm.controls.btcWallet.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountDetailsForm.controls.btcWallet.errors.required"
+                >
+                  <small>BTC Wallet is required</small>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button
+                pButton
+                type="button"
+                label="Update Account Details"
+                class="p-button-success"
+                (click)="updateAccountDetails()"
+                [disabled]="updateAccountDetailsProcessing"
+              ></button>
+            </div>
+          </form>
+        </p-card>
+      </div>
+
+      <div class="col-xs-12 col-sm-4" style="margin-top: 10px;">
+        <p-card>
+          <form class="form-container" [formGroup]="accountPasswordForm">
+            <h3 style="margin-bottom: 20px">Change Password</h3>
+
+            <div class="form-group">
+              <label for="oldPassword">Old Password</label>
+              <input
+                type="password"
+                class="input input-block"
+                name="oldPassword"
+                id="oldPassword"
+                formControlName="oldPassword"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountPasswordForm.controls.oldPassword.untouched &&
+                  accountPasswordForm.controls.oldPassword.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.oldPassword.errors.required"
+                >
+                  <small>Old Password is required</small>
+                </ng-template>
+
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.oldPassword.errors.minlength"
+                >
+                  <small
+                    >Old Password must have atleast
+                    {{
+                      accountPasswordForm.controls.oldPassword.errors.minlength
+                        .requiredLength
+                    }}
+                    characters length</small
+                  >
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input
+                type="password"
+                class="input input-block"
+                name="newPassword"
+                id="newPassword"
+                formControlName="newPassword"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountPasswordForm.controls.newPassword.untouched &&
+                  accountPasswordForm.controls.newPassword.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.newPassword.errors.required"
+                >
+                  <small>New Password is required</small>
+                </ng-template>
+
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.newPassword.errors.minlength"
+                >
+                  <small
+                    >New Password must have atleast
+                    {{
+                      accountPasswordForm.controls.newPassword.errors.minlength
+                        .requiredLength
+                    }}
+                    characters length</small
+                  >
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input
+                type="password"
+                class="input input-block"
+                name="confirmNewPassword"
+                id="confirmNewPassword"
+                formControlName="confirmNewPassword"
+                pInputText
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  !accountPasswordForm.controls.confirmNewPassword.untouched &&
+                  accountPasswordForm.controls.confirmNewPassword.invalid
+                "
+              >
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.confirmNewPassword.errors.required"
+                >
+                  <small>Confirm New Password is required</small>
+                </ng-template>
+
+                <ng-template
+                  [ngIf]="accountPasswordForm.controls.confirmNewPassword.errors.isMatch"
+                >
+                  <small>Confirm New Password did not matched</small>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button
+                pButton
+                type="button"
+                label="Update Password"
+                class="p-button-success"
+                (click)="updateAccountPassword()"
+                [disabled]="updateAccountPasswordProcessing"
+              ></button>
+            </div>
+          </form>
+        </p-card>
+      </div>
+    </div>
+  </div>
+
+  <p-toast></p-toast>
+</div>

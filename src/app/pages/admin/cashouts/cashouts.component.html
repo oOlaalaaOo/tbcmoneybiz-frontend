@@ -1,0 +1,274 @@
+<div class="cashouts">
+  <app-admin-navigation-header></app-admin-navigation-header>
+
+  <div class="page-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 style="margin-bottom: 30px">Cashouts</h2>
+      </div>
+      <div class="col-xs-12">
+        <p-card>
+          <div class="row vertical-space">
+            <div class="col-xs-12 col-md-8">
+              <label style="margin-right: 10px">Filter Status:</label>
+              <p-dropdown
+                [options]="statusFilters"
+                [(ngModel)]="statusFilter"
+                (onChange)="filterAllCashouts()"
+              ></p-dropdown>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <input
+                type="text"
+                class="input input-block"
+                name="searchMemberNameKeyword"
+                id="searchMemberNameKeyword"
+                placeholder="Search by Member Name"
+                [(ngModel)]="searchMemberNameKeyword"
+                (keyup)="filterAllCashouts()"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <p-table
+                [value]="cashouts"
+                [lazy]="true"
+                (onLazyLoad)="getAllCashouts($event)"
+                [paginator]="true"
+                [rows]="15"
+                [totalRecords]="cashoutsTotalCount"
+                [loading]="loadingCashouts"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Member</th>
+                    <th>Membership Plan</th>
+                    <th>BTC Value</th>
+                    <th>Transaction Hash</th>
+                    <th>Paid Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cashout>
+                  <tr>
+                    <td>{{ cashout.user.name }}</td>
+                    <td>
+                      {{ cashout.membership.plan.name }} ({{
+                        cashout.membership.plan.cost | currency
+                      }})
+                    </td>
+                    <td>{{ cashout.btc_value }}</td>
+                    <td>
+                      <a
+                        [href]="
+                          checkTransactionHash(cashout.transaction_hash)
+                        "
+                        target="_blank"
+                        >{{ cashout.transaction_hash }}</a
+                      >
+                    </td>
+                    <td>
+                      <button
+                        pButton
+                        type="button"
+                        class="p-button-rounded p-button-sm"
+                        [ngClass]="{
+                          'p-button-warning': cashout.status == 'pending',
+                          'p-button-success': cashout.status == 'confirmed',
+                          'p-button-danger': cashout.status == 'denied'
+                        }"
+                        [label]="cashoutStatusText(cashout.status)"
+                      ></button>
+                    </td>
+                    <td>{{ cashout.created_at | date: "medium" }}</td>
+                    <td>
+                      <button
+                        pButton
+                        type="button"
+                        class="p-button-outlined p-button-sm"
+                        label="view"
+                        (click)="selectCashout(cashout)"
+                      ></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog
+    header="Cashout Details"
+    [(visible)]="showCashoutModal"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    *ngIf="selectedCashout"
+  >
+    <div class="row">
+      <div class="col-xs-12">
+        <table style="width: 100%; margin-bottom: 30px">
+          <tr>
+            <td style="width: 35%">Member</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.user.name }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%">Membership Plan</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.membership.plan.name }} -
+              {{ selectedCashout.membership.plan.cost | currency }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%">Current BTC Value</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.btc_value }}
+            </td>
+          </tr>
+          <tr *ngIf="selectedCashout.status === 'confirmed'">
+            <td style="width: 35%">Transaction Hash</td>
+            <td style="padding: 10px 15px">
+              <a
+                [href]="
+                  checkTransactionHash(selectedCashout.transaction_hash)
+                "
+                target="_blank"
+                >{{ selectedCashout.transaction_hash }}</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%">Date</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.created_at | date: "medium" }}
+            </td>
+          </tr>
+          <tr *ngIf="selectedCashout.status == 'confirmed'">
+            <td style="width: 35%">Confirmed Date</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.confirmed_at | date: "medium" }}
+            </td>
+          </tr>
+          <tr *ngIf="selectedCashout.status == 'denied'">
+            <td style="width: 35%">Denied Date</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.denied_at | date: "medium" }}
+            </td>
+          </tr>
+        </table>
+
+        <h4>Cashout Requests</h4>
+
+        <table style="width: 100%; margin-bottom: 30px">
+          <tr>
+            <td style="width: 35%">Interest</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.interest }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%">Unilevel</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.unilevel_points }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 35%">Status</td>
+            <td style="padding: 10px 15px">
+              {{ selectedCashout.status | uppercase }}
+            </td>
+          </tr>
+        </table>
+
+        <!-- <h4>Status: {{ selectedCashout.status | uppercase }}</h4> -->
+      </div>
+    </div>
+    <p-footer  *ngIf="selectedCashout.status == 'pending'">
+      <button
+        pButton
+        class="p-button-danger"
+        label="Deny"
+        (click)="denyMembership(selectedCashout.id)"
+      ></button>
+      <button
+        pButton
+        class="p-button-success"
+        label="Confirm"
+        (click)="showConfirmCashoutModal = true"
+      ></button>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog
+    header="Confirm Membership"
+    [(visible)]="showConfirmCashoutModal"
+    [style]="{ width: '30vw' }"
+    [draggable]="false"
+    *ngIf="selectedCashout"
+  >
+    <div
+      class="p-field-checkbox"
+      style="margin-top: 10px"
+    >
+      <label for="mark-as-paid" style="margin-right: 10px">Accepted Interest</label>
+      <input
+        type="text"
+        class="input input-block"
+        name="acceptedInterest"
+        id="acceptedInterest"
+        [(ngModel)]="selectedCashout.accepted_interest"
+        pInputText
+      />
+    </div>
+
+    <div
+      class="p-field-checkbox"
+      style="margin-top: 10px"
+    >
+      <label for="mark-as-paid" style="margin-right: 10px">Accepted Unilevel</label>
+      <input
+        type="text"
+        class="input input-block"
+        name="acceptedUnilevel"
+        id="acceptedUnilevel"
+        [(ngModel)]="selectedCashout.accepted_unilevel_points"
+        pInputText
+      />
+    </div>
+
+    <div
+      class="p-field-checkbox"
+      style="margin-top: 10px"
+    >
+      <label for="mark-as-paid" style="margin-right: 10px">Transaction Hash</label>
+      <input
+        type="text"
+        class="input input-block"
+        name="transactionHash"
+        id="transactionHash"
+        [(ngModel)]="selectedCashout.transaction_hash"
+        pInputText
+      />
+    </div>
+
+    <p-footer>
+      <button
+        pButton
+        class="p-button-success"
+        label="Confirm"
+        (click)="
+          confirmCashout(selectedCashout.id)
+        "
+      ></button>
+    </p-footer>
+  </p-dialog>
+
+  <p-toast></p-toast>
+</div>

@@ -1,0 +1,81 @@
+<div class="dashboard">
+  <app-admin-navigation-header></app-admin-navigation-header>
+
+  <div class="page-container">
+    <div class="row">
+      <div class="col-xs-4" *ngIf="memberStats">
+        <p-card header="Members Stats">
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 35%; padding: 10px 15px">Activated</td>
+              <td>
+                {{ memberStats.total_activated }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%; padding: 10px 15px">Deactivated</td>
+              <td>
+                {{ memberStats.total_deactivated }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%; padding: 10px 15px">Total</td>
+              <td>
+                {{ memberStats.total_count }}
+              </td>
+            </tr>
+          </table>
+        </p-card>
+      </div>
+
+      <div class="col-xs-4" *ngIf="membershipStats">
+        <p-card header="Memberships Stats">
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Pending</td>
+              <td>
+                {{ membershipStats.total_pending }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Confirmed</td>
+              <td>
+                {{ membershipStats.total_confirmed }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Denied</td>
+              <td>
+                {{ membershipStats.total_denied }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Total</td>
+              <td>
+                {{ membershipStats.total_count }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Total USD Value</td>
+              <td>
+                {{ membershipStats.total_current_usd_value | currency }}
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%; padding: 10px 15px">Total BTC Value</td>
+              <td>
+                {{ membershipStats.total_current_btc_value }}
+              </td>
+            </tr>
+          </table>
+        </p-card>
+      </div>
+
+      <div class="col-xs-4">
+        <p-card header="Cashouts Stats">
+          <h4>N/A</h4>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

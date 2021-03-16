@@ -1,0 +1,19 @@
+@import '../variables.scss';
+
+// Form Group
+.form-group {
+  margin: 0px 0px 15px 0px;
+
+  // label {
+  //   font-size: 18px;
+  // }
+
+  input {
+    margin: 5px 0px;
+  }
+
+  .error-message {
+    color: $color-error;
+    margin-left: 1px;
+  }
+}
