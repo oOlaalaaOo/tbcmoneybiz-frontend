@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
       }
     );
 
-    // this.getBtcValueFromUsd();
+    this.getBtcValueFromUsd();
   }
 
   ngOnDestroy(): void {
@@ -139,7 +139,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private getBtcValueFromUsd() {
-    this.blockchainService.getBtcValueFromUsd('30').subscribe((resp) => {
+    this.blockchainService.getBtcValueFromUsd('12').subscribe((resp) => {
       const data = resp.data;
 
       this.btcValue = data.btc_value;
