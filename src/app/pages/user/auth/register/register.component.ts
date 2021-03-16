@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public registerStatusMessage: any[] = [];
   public registerProcessing: boolean = false;
-  public adminBtcWallet: string = '1GM7YzQCPTdTmPUizB7zkCAn5Yr12L4di7';
+  public adminBtcWallet: string = '3M38QEqP3uFC4GiPGXZWLKPXyczw8octpU';
   public btcValue: string = '0';
 
   constructor(
@@ -142,6 +142,7 @@ export class RegisterComponent implements OnInit {
     this.blockchainService.getBtcValueFromUsd('12').subscribe((resp) => {
       const data = resp.data;
 
+      console.log('data', data);
       this.btcValue = data.btc_value;
     });
   }
