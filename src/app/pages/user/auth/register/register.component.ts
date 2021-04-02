@@ -14,8 +14,7 @@ import { MessageService } from 'primeng/api';
 })
 export class RegisterComponent implements OnInit {
   private registerSubscription: Subscription;
-  public registerForm: FormGroup;
-  public registerStatusMessage: any[] = [];
+public registerForm: FormGroup;  public registerStatusMessage: any[] = [];
   public registerProcessing: boolean = false;
   public adminBtcWallet: string = '3M38QEqP3uFC4GiPGXZWLKPXyczw8octpU';
   public btcValue: string = '0';
